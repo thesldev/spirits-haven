@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const HomeBanner = () => {
   return (
-    <div className="relative mt-8">
+    <div className="relative mt-2">
       <div className="flex justify-evenly">
         <div className="relative h-[600px] w-full overflow-hidden">
           <Image
