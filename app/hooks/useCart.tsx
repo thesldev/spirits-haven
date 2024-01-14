@@ -5,6 +5,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { toast } from "react-hot-toast";
 import { CartProductType } from "../product/[productId]/ProductDetails";
 
 type CartContextType = {
@@ -42,6 +43,9 @@ export const CartContextProvider = (props: Props) => {
         updatedCart = [product];
       }
 
+      // display the toast message
+      toast.success("Bottle added to cart");
+      // store the cart data in local storage
       localStorage.setItem("CartItems", JSON.stringify(updatedCart));
       return updatedCart;
     });
