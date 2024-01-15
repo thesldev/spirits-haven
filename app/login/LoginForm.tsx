@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Input from "../components/inputs/Input";
 import Heading from "../components/Heading";
 import { FieldValues, useForm, SubmitHandler } from "react-hook-form";
@@ -10,8 +10,13 @@ import { AiOutlineGoogle } from "react-icons/ai";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { SafeUser } from "@/types";
 
-const LoginForm = () => {
+interface LoginFormProps {
+  currentUser: SafeUser | null;
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,
@@ -25,6 +30,14 @@ const LoginForm = () => {
   });
 
   const router = useRouter();
+
+  // make router protections
+  useEffect(() => {
+    if (currentUser) {
+      router.push("/");
+      router.refresh();
+    }
+  });
 
   //   create onsubmit function
   const onsubmit: SubmitHandler<FieldValues> = (data) => {
@@ -46,6 +59,11 @@ const LoginForm = () => {
       }
     });
   };
+
+  // check if user is logged in or not(make router protections)
+  if (currentUser) {
+    return <p className="text-center">Logged in. Redirecting...</p>;
+  }
 
   return (
     <>
