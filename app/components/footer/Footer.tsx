@@ -89,6 +89,10 @@ const Footer = () => {
                 <AiFillLinkedin size={24} />
               </Link>
             </div>
+            <h3 className="text-lg font-bold mb-1 mt-5">Administration</h3>
+            <Link href="/admin" className="mb-2 underline">
+              Admin Login
+            </Link>
           </FooterList>
         </div>
       </Container>
