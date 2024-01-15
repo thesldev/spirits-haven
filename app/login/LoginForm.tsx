@@ -73,7 +73,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
       <Button
         lable="Continue with Google"
         icon={AiOutlineGoogle}
-        onClick={() => {}}
+        onClick={() => {
+          signIn("google");
+        }}
       />
       <hr className="bg-slate-300 w-full h-px" />
       {/* add inputfields for registration form */}

@@ -83,9 +83,11 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
       <Heading title="Sign Up for SPIRIT-HAVEN" />
       {/* create button for google signup */}
       <Button
-        lable="Sign Up with Google"
+        lable="Continue with Google"
         icon={AiOutlineGoogle}
-        onClick={() => {}}
+        onClick={() => {
+          signIn("google");
+        }}
       />
       <hr className="bg-slate-300 w-full h-px" />
       {/* add inputfields for registration form */}
