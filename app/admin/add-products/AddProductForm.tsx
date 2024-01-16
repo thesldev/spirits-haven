@@ -19,6 +19,8 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export type ImageType = {
   color: string;
@@ -33,6 +35,8 @@ export type UplodedImageType = {
 };
 
 const AddProductForm = () => {
+  const router = useRouter();
+
   const [isLoading, setIsLoading] = useState(false);
   const [images, setImages] = useState<ImageType[] | null>();
   const [isProductCreated, setIsProductCreated] = useState(false);
@@ -145,7 +149,20 @@ const AddProductForm = () => {
     await handleImageUploads();
     const productData = { ...data, images: uploadedImages };
 
-    console.log("productData", productData);
+    //save data in mongo db
+    axios
+      .post("/api/product", productData)
+      .then(() => {
+        toast.success("Bottle Added");
+        setIsProductCreated(true);
+        router.refresh();
+      })
+      .catch((error) => {
+        toast.error("Something went wrong while saving to the mongo db");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   const category = watch("category");
